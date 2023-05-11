@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: javadeplo
+  namespace: {{.Values.nsName}}
+spec:
+  replicas: {{.Values.replicasJava}}
+  selector:
+    matchLabels:
+      app: {{.Values.nombreApp}}
+  template:
+    metadata:
+      labels:
+        app: {{.Values.nombreApp}}
+    spec:
+      containers:
+        - name: mongo-quarkus
+          image: "{{.Values.imagen.usuario}}/{{.Values.imagen.repo}}:{{.Values.imagen.tag}}"
+          env:
+            - name: QUARKUS_MONGODB_CONNECTION_STRING
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-crd-admin-system
+                  key: connectionString.standardSrv
+          ports:
+            - containerPort: {{.Values.puertoApp}}
+          resources:
+            limits:
+              memory: "252Mi"
+              cpu: "252m"
+            requests:
+              memory: "252Mi"
+              cpu: "252m"

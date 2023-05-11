@@ -1,0 +1,9 @@
+nsName: nsmongo
+puertoApp: 8080
+nombreApp: javatfg
+replicasJava: 1
+replicasJavaMax: 5
+imagen:
+  usuario: enriqueav99
+  repo: javacicd
+  tag: latest
