@@ -29,4 +29,5 @@ import javax.ws.rs.core.Application;
 )
 @ApplicationPath("/")
 public class mongoApp extends Application{
+
 }
