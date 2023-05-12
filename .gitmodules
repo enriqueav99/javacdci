@@ -1,0 +1,9 @@
+[submodule "kubernetes/prom_on_k8s_howto"]
+	path = kubernetes/prom_on_k8s_howto
+	url = https://github.com/shevyf/prom_on_k8s_howto.git
+[submodule "kubernetes/mongodb-kubernetes-operator"]
+	path = kubernetes/mongodb-kubernetes-operator
+	url = https://github.com/mongodb/mongodb-kubernetes-operator.git
+[submodule "kubernetes/kube-prometheus"]
+	path = kubernetes/kube-prometheus
+	url = https://github.com/prometheus-operator/kube-prometheus.git
