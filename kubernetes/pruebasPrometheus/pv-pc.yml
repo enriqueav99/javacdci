@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-nfs-data
+  namespace: monitoring
+  labels:
+    type: ext4
+    app: prometheus-deployment
+spec:
+  storageClassName: managed-nfs
+  capacity:
+    storage: 100Gi
+  accessModes:
+    - ReadWriteMany
+  gcePersistentDisk:
+    pdName: disk-prometheus
+    fsType: ext4
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-nfs-data
+  namespace: monitoring
+  labels:
+    app: prometheus-deployment
+spec:
+  storageClassName: managed-nfs
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 100Gi
