@@ -32,7 +32,20 @@ public class Resource {
 
 
 
-
+    @Operation(operationId = "requestAllProductos",
+            summary = "Acceso a los datos de todos los productos",
+            description = "Devuelve los datos de los productos"
+    )
+    @APIResponses({
+            @APIResponse(responseCode = "200",
+                    description = "Se han localizado los productos y se devuelven sus datos",
+                    content = @Content(mediaType = MediaType.TEXT_PLAIN
+                    )
+            ),
+            @APIResponse(responseCode = "404",
+                    description = "Error al recuperar productos"
+            )
+    })
 
     @GET
     @Path("/todos")
@@ -44,8 +57,8 @@ public class Resource {
 
 
     @Operation(operationId = "requestProducto",
-            summary = "Acceso a los datos de un socio identificado por su nombre",
-            description = "Devuelve los datos del producto identificado a través de su nombre"
+            summary = "Acceso a los datos de un socio identificado por su id",
+            description = "Devuelve los datos del producto identificado a través de su id"
     )
     @APIResponses({
             @APIResponse(responseCode = "200",
@@ -54,7 +67,7 @@ public class Resource {
                     )
             ),
             @APIResponse(responseCode = "404",
-                    description = "No hay registrado un producto con el nombre especificado"
+                    description = "No hay registrado un producto con el id especificado"
             )
     })
     @Path("/{id}")
@@ -62,7 +75,7 @@ public class Resource {
     @Produces(MediaType.TEXT_PLAIN)
     public Response requestProducto(
             @Parameter(required = true,
-            description = "nombre del producto",
+            description = "id del producto",
             in = ParameterIn.PATH,
             name = "nombre",
             schema = @Schema(type = SchemaType.STRING)) @PathParam("id") String id) {
@@ -140,6 +153,10 @@ public class Resource {
     }
 
 
+    @Operation(operationId = "updateProducto",
+            summary = "Actualiza un producto",
+            description = "Cambia los datos de un producto"
+    )
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     public Response updateByNombre(@RequestBody(description = "datos del producto",
@@ -153,6 +170,10 @@ public class Resource {
         return Response.ok().entity("Producto actualizado").build();
     }
 
+    @Operation(operationId = "deleteProducto",
+            summary = "Borra un producto",
+            description = "Elimina un producto por su id"
+    )
     @DELETE
     @Path("/{id}")
     public Response deleteByNombre(@PathParam("id") String id){

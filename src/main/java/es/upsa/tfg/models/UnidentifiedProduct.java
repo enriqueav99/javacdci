@@ -1,7 +1,6 @@
 package es.upsa.tfg.models;
 
 import lombok.*;
-
 @Builder
 @Data
 public class UnidentifiedProduct {
