@@ -1,0 +1,40 @@
+apiVersion: mongodbcommunity.mongodb.com/v1
+kind: MongoDBCommunity
+metadata:
+  name: mongo-crd
+  labels:
+    app: mimongo
+spec:
+  members: 3
+  type: ReplicaSet
+  version: "5.0.3"
+  security:
+    authentication:
+      modes: ["SCRAM"]
+  users:
+    - name: system
+      db: admin
+      passwordSecretRef:
+        name: system-password
+      roles:
+        - name: clusterAdmin
+          db: admin
+        - name: readWriteAnyDatabase
+          db: admin
+        - name: userAdminAnyDatabase
+          db: admin
+      scramCredentialsSecretName: secret-scram
+  additionalMongodConfig:
+    storage.wiredTiger.engineConfig.journalCompressor: zlib
+    net:
+      port: 40333
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: system-password
+  namespace: nsmongo
+type: Opaque
+stringData:
+  password: manager
