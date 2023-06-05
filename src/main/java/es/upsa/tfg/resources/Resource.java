@@ -42,7 +42,7 @@ public class Resource {
                     content = @Content(mediaType = MediaType.TEXT_PLAIN
                     )
             ),
-            @APIResponse(responseCode = "404",
+            @APIResponse(responseCode = "500",
                     description = "Error al recuperar productos"
             )
     })
@@ -57,7 +57,7 @@ public class Resource {
 
 
     @Operation(operationId = "requestProducto",
-            summary = "Acceso a los datos de un socio identificado por su id",
+            summary = "Acceso a los datos de un producto identificado por su id",
             description = "Devuelve los datos del producto identificado a través de su id"
     )
     @APIResponses({
@@ -139,7 +139,7 @@ public class Resource {
     @POST
     @Path("/add")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response addPRoducto(@RequestBody(description = "datos del producto",
+    public Response addProducto(@RequestBody(description = "datos del producto",
             required = true,
             content = @Content(mediaType = MediaType.APPLICATION_JSON,
                     schema = @Schema(type = SchemaType.OBJECT,
@@ -157,6 +157,27 @@ public class Resource {
             summary = "Actualiza un producto",
             description = "Cambia los datos de un producto"
     )
+    @APIResponses({
+            @APIResponse(responseCode = "200",
+                    description = "Se ha actualizado el producto correctamente.",
+                    headers = @Header(name = HttpHeaders.LOCATION,
+                            description = "URI con la que acceder al producto que se ha creado",
+                            schema = @Schema(type = SchemaType.STRING,
+                                    format = "uri"
+                            )
+                    ),
+                    content = @Content(mediaType = MediaType.APPLICATION_JSON,
+                            schema = @Schema(type = SchemaType.OBJECT,
+                                    implementation = Producto.class
+                            )
+                    )
+            ),
+
+            @APIResponse(responseCode = "500",
+                    description = "Se ha producido un error",
+                    content = @Content(mediaType = MediaType.APPLICATION_JSON)
+            )
+    })
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     public Response updateByNombre(@RequestBody(description = "datos del producto",
@@ -175,9 +196,20 @@ public class Resource {
             description = "Elimina un producto por su id"
     )
     @DELETE
-    @Path("/{id}")
-    public Response deleteByNombre(@PathParam("id") String id){
+    @Path("/borrar/{id}")
+    public Response deleteById(@PathParam("id") String id){
         mongoRepository.borrarPorId(id);
         return Response.ok().entity("El objeto " + id + " ha sido eliminado").build();
+    }
+
+    @Operation(operationId = "deleteProducto",
+            summary = "Borra un producto",
+            description = "Elimina un producto por su nombre"
+    )
+    @DELETE
+    @Path("/{nombre}")
+    public Response deleteByNombre(@PathParam("nombre") String nombre){
+        mongoRepository.deleteByNombre(nombre);
+        return Response.ok().entity("El objeto " + nombre + " ha sido eliminado").build();
     }
 }
