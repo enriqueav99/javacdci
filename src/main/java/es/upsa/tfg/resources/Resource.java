@@ -206,7 +206,7 @@ public class Resource {
         return Response.ok().entity("El objeto " + id + " ha sido eliminado").build();
     }
 
-    @Operation(operationId = "deleteProducto",
+    @Operation(operationId = "deleteProductoNombre",
             summary = "Borra un producto",
             description = "Elimina un producto por su nombre"
     )
