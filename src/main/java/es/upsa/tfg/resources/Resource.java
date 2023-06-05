@@ -36,6 +36,7 @@ public class Resource {
             summary = "Acceso a los datos de todos los productos",
             description = "Devuelve los datos de los productos"
     )
+    /*
     @APIResponses({
             @APIResponse(responseCode = "200",
                     description = "Se han localizado los productos y se devuelven sus datos",
@@ -45,7 +46,7 @@ public class Resource {
             @APIResponse(responseCode = "500",
                     description = "Error al recuperar productos"
             )
-    })
+    })*/
 
     @GET
     @Path("/todos")
