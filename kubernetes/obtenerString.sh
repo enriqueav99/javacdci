@@ -1,1 +1,1 @@
-kubectl get secret mongo-prueba-admin-system -o json | jq -r '.data | with_entries(.value |= @base64d)'
+kubectl get secret mongo-crd-admin-system -o json | jq -r '.data | with_entries(.value |= @base64d)'
