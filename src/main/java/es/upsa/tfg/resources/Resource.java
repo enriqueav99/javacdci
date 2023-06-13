@@ -30,7 +30,24 @@ public class Resource {
     @Inject
     MongoRepository mongoRepository;
 
+    @Operation(operationId = "saludo",
+            summary = "Devuelve una cadena de texto",
+            description = "Endpoint para comprobar que funciona el CI/CD"
+    )
 
+    @APIResponses({
+            @APIResponse(responseCode = "200",
+                    description = "Respuesta correcta"
+            ),
+            @APIResponse(responseCode = "500",
+                    description = "Error al recuperar productos"
+            )
+    })
+    @GET
+    @Path("/saludo")
+    public Response saludo(){
+        return Response.ok().entity("Hola buenas tardes.").build();
+    }
 
     @Operation(operationId = "requestAllProductos",
             summary = "Acceso a los datos de todos los productos",
