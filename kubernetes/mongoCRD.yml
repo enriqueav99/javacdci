@@ -5,7 +5,7 @@ metadata:
   labels:
     app: mimongo
 spec:
-  members: 4
+  members: 1
   type: ReplicaSet
   version: "5.0.3"
   security:
