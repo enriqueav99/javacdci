@@ -26,8 +26,8 @@ spec:
             - containerPort: {{.Values.puertoApp}}
           resources:
             limits:
-              memory: "2048Mi"
-              cpu: "2048m"
+              memory: "256Mi"
+              cpu: "256m"
             requests:
-              memory: "2048Mi"
-              cpu: "2048m"
+              memory: "256Mi"
+              cpu: "256m"
